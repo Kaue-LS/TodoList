@@ -9,6 +9,7 @@ const initialState = {
       date: new Date().toISOString(),
       description: "testando posts",
       pinColor: "blue",
+      step: "to-do", //to-do || working || done
       time: 12,
       title: "Lavar o cabelo",
     },
@@ -17,6 +18,7 @@ const initialState = {
       date: new Date().toISOString(),
       description: "testando posts-2",
       pinColor: "green",
+      step: "working", //to-do || working || done
       time: 12,
       title: "Lavar o pé",
     },

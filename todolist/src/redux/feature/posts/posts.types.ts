@@ -8,6 +8,7 @@ type postsProps = {
   id: number;
   title: string;
   description: string;
+  step: string;
   time: number;
   date: Date | string;
   pinColor: string;

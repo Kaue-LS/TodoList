@@ -1,14 +1,17 @@
 'use client'
 
 import { useSelector } from 'react-redux'
-import { RootState } from '../../redux/store'
-import type { initialStateProps, postsProps } from '@/redux/feature/posts/posts.types'
+import { RootState } from '@/redux/store'
+import type { postsProps } from '@/redux/feature/posts/posts.types'
+import { FilterData } from '@/../libs/filter'
 
 const PostList = () => {
-    const postData = useSelector((state: RootState) => state.posts.data);
-    console.log(postData)
+    const postsData = useSelector((state: RootState) => state.posts.data);
 
-    if (!postData.length) {
+    const { done, todo, working } = FilterData(postsData)
+
+    console.log({ done, todo, working })
+    if (!postsData.length) {
         return (
             <section>
                 <h1>Empty</h1>
@@ -17,9 +20,21 @@ const PostList = () => {
     }
 
 
-    const renderedPosts = postData.map((post: postsProps) => (
-        <label key={post.id}>
-            <span>#{post.id}</span>
+    const renderedTodoPosts = todo.map((post: postsProps, index) => (
+        <label key={index + 1}>
+            <span>#{index + 1}</span>
+            <h3>{post.title}</h3>
+        </label>
+    ));
+    const renderedWorkingPosts = working.map((post: postsProps, index) => (
+        <label key={index + 1}>
+            <span>#{index + 1}</span>
+            <h3>{post.title}</h3>
+        </label>
+    ));
+    const renderedDonePosts = done.map((post: postsProps, index) => (
+        <label key={index + 1}>
+            <span>#{index + 1}</span>
             <h3>{post.title}</h3>
         </label>
     ));
@@ -28,8 +43,16 @@ const PostList = () => {
     return (
         <section>
             <div >
-                <h1>To do</h1>
-                {renderedPosts}
+                <h2>To do</h2>
+                {renderedTodoPosts}
+            </div>
+            <div>
+                <h2>Working</h2>
+                {renderedWorkingPosts}
+            </div>
+            <div>
+                <h2>Done</h2>
+                {renderedDonePosts}
             </div>
         </section>
     )
